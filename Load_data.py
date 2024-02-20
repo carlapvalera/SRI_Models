@@ -1,20 +1,22 @@
 import ir_datasets
 import Json
 import spacy
+import VectorSpace
 
 class Load_data:
 
     def tokenization_spacy(self,texts):
         return [[token for token in self.nlp(doc)] for doc in texts]
     
-    def create_total_words(tokenized_docs):
-        total_words = {}
+    def create_total_words(tokenized_docs:list[list]):
+        total_words = set()
         for doc in tokenized_docs:
             for word in doc:
-                total_words.setdefault(word)
-        return total_words  
+                total_words.add(word)
+        return list(total_words)
+                
     
-    def create_matrix(total_words,tokenized_docs):
+    ''' def create_matrix(total_words,tokenized_docs):
         matrix = []
         for doc in tokenized_docs:
             row = []
@@ -25,18 +27,20 @@ class Load_data:
                     row.append(0)
             matrix.append(row)
         return matrix
-    
+    '''    
 
     def __init__(self):
         self.nlp = spacy.load("en_core_web_sm")
         dataset = ir_datasets.load("cranfield")
         documents = [doc.text for doc in dataset.docs_iter()]
         self.documents = documents
-        self.tokenized_docs = self.tokenization_spacy(self.documents)
-        self.total_words = self.create_total_words(self.tokenized_docs)
+        tokenized_docs = self.tokenization_spacy(documents)
+        self.tokenized_docs = tokenized_docs
+        self.total_words = self.create_total_words(tokenized_docs)
+        self.vectorial_model = VectorSpace.VectorSpace(tokenized_docs,self.total_words)
         #self.dictionary = self.create_dictionary(self.tokenized_docs)
         #self.vocabulary = self.create_vocabulary(self.dictionary
-        self.matrix = self.create_matrix(self.total_words,self.tokenized_docs)
+        self.matrix = self.vectorial_model.tf_idf
 
     def get_documents(self):
         return self.documents
@@ -46,8 +50,4 @@ class Load_data:
         return self.total_words
     def get_matrix(self):
         return self.matrix
-        
-
-print ("hola")     
-x = Load_data()
-x.get_documents()
+     

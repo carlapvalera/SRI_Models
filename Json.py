@@ -17,13 +17,6 @@ class Json:
     def get_tokenized_docs(self):
         return self.tokenized_docs
     
-    
-    data = {
-        "key1": "value1",
-        "key2": "value2",
-        "key3": "value3"
-    }
-
     def to_json(self):
         return {
             "total_words": self.total_words,
