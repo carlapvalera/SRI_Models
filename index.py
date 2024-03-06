@@ -1,6 +1,5 @@
-from ir_measures import *
 from cranfield import CranfieldIR
-from vs_model import ClassVectorSpaceModel
+from models.vs_model import ClassVectorSpaceModel
 from pln import SimpleTextProcessor
 import streamlit as st
 from Utils import Query

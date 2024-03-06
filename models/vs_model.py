@@ -2,7 +2,7 @@ from ir_measures import ScoredDoc
 import numpy as np
 from collections import Counter
 from Utils import Query
-from term_fre_model import FrequencyModel
+from vectorial_model import FrequencyModel
 
 
 class ClassVectorSpaceModel(FrequencyModel):
