@@ -1,0 +1,14 @@
+bin
+etc
+lib
+lib64
+pyvenv.cfg
+share
+include
+__pycache__
+.pytest_cache
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out

@@ -1,8 +1,7 @@
 
-from typing import Iterable
-from Utils import Doc, Query
-from ir_measures import ScoredDoc
-
+import numpy as np
+from collections import Counter
+from utils import Doc, KMaxHeap, Query
 import pickle
 class IRModel:
     def __init__(self) -> None:

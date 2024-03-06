@@ -1,7 +1,7 @@
 from typing import Counter
-from vectorial_model import FrequencyModel
+from models.vectorial_model import FrequencyModel
 from ir_measures import ScoredDoc
-from Utils import Query
+from utils import Query
 import math
 
 
