@@ -5,7 +5,7 @@ from Utils import Query
 from vectorial_model import FrequencyModel
 
 
-class ClassVectorSpaceModel(FrequencyModel):
+class VectorSpaceModel(FrequencyModel):
     """ Implementation of the vector space model studied in class """
 
     def fit(self, corpus):

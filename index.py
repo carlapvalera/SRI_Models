@@ -1,5 +1,5 @@
 from cranfield import CranfieldIR
-from models.vs_model import ClassVectorSpaceModel
+from models.vs_model import VectorSpaceModel
 from pln import SimpleTextProcessor
 import streamlit as st
 from Utils import Query
@@ -29,8 +29,8 @@ def get_irsystem(model, corpus):
     st.session_state['corpus'] = corpus
 
     text_processor = SimpleTextProcessor()
-    if model == 'ClassVectorSpace':
-        model = ClassVectorSpaceModel()
+    if model == 'VectorSpace':
+        model = VectorSpaceModel()
 
 
     if corpus == "Cranfield":
@@ -44,8 +44,8 @@ if 'system' not in st.session_state:
 st.title('Welcome to the Information Retrieval System! 👋')
 
 st.sidebar.header('System options')
-corpus = st.sidebar.radio("Select corpus", ("Cranfield"))
-model = st.sidebar.radio("Select model", ("ClassVectorSpace"))
+corpus = st.sidebar.radio("Select corpus", ("Cranfield", "Vaswani"))
+model = st.sidebar.radio("Select model", ("VectorSpace", "OkapiBM25 (Probabilistic)"))
 action = st.sidebar.radio("Select mode", ("Retrieve query"))
 
 if action == "Retrieve query":
