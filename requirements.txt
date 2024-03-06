@@ -10,3 +10,5 @@ black==22.3.0
 pre-commit==2.19.0
 pytest
 contractions
+sympy
+gensim

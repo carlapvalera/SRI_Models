@@ -8,7 +8,7 @@ from nlp import SimpleTextProcessor
 import streamlit as st 
 from utils import Query
 from systems.evaluation import system_measures, build_precission_recall_chart,eval_system
-
+from models.boolean_model import boolean_model
 
 def init_session():
     st.session_state['text_query'] = ''
@@ -34,10 +34,13 @@ def get_irsystem(model, corpus):
     st.session_state['corpus'] = corpus
 
     text_processor = SimpleTextProcessor()
-    if model == 'ClassVectorSpace':
-        model = ClassVectorSpaceModel()
-    else:
+    if model == "OkapiBM25":
         model = OkapiBM25Model()
+       
+    else  :
+        model = ClassVectorSpaceModel()
+    
+       
 
 
     if corpus == "Cranfield":
@@ -57,7 +60,7 @@ st.title('Welcome to the Information Retrieval System! 👋')
 
 st.sidebar.header('System options')
 corpus = st.sidebar.radio("Select corpus", ("Cranfield", "Vaswani", "TrecCovid")) 
-model = st.sidebar.radio("Select model", ("ClassVectorSpace", "OkapiBM25")) 
+model = st.sidebar.radio("Select model", ("OkapiBM25","Boolean")) 
 action = st.sidebar.radio("Select mode", ("Retrieve query", "Evaluate model")) 
 
 
