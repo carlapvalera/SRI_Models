@@ -3,7 +3,7 @@ from models.vs_model import VectorSpaceModel
 from pln import SimpleTextProcessor
 import streamlit as st
 from Utils import Query
-
+from measure import system_measures, build_precission_recall_chart, eval_system
 
 
 def init_session():
@@ -35,6 +35,8 @@ def get_irsystem(model, corpus):
 
     if corpus == "Cranfield":
         st.session_state['system'] = CranfieldIR(model, text_processor)
+    else:
+        st.session_state['system'] = VaswanidIR(model, text_processor)
 
 
 
@@ -104,3 +106,18 @@ if action == "Retrieve query":
                 rel_message.text('Was this document helpful to you?')
                 st.session_state['relevants'][i] = rel_answer.checkbox(label='', key=f"rel{i}", value=False)
 
+if action == "Evaluate model":
+    init_session()
+    mcol, kcol = st.columns([13, 7])
+    options = mcol.multiselect("Select the measures to evaluate",
+                               list(system_measures.keys()))
+
+    k = kcol.slider('Select the number of top documents to evaluate on', 5, 30)
+
+    if st.button('Evaluate'):
+        irsystem = get_irsystem(model, corpus)
+        results = eval_system(irsystem, options, k)
+        st.text(results)
+
+        graph = build_precission_recall_chart(irsystem)
+        st.plotly_chart(graph)
